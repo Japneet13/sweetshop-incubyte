@@ -1,0 +1,182 @@
+{
+  "info": {
+    "name": "Incubyte Sweet Shop API",
+    "_postman_id": "d5b28aa9-1f44-4ce0-90ba-a4cf22bd9023",
+    "description": "Postman collection for Incubyte Backend Assessment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "register"] }
+      }
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"Japneet\",\n  \"password\": \"JapneetKaur@22BCS10390\"\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/auth/login", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "login"] }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let json = pm.response.json();",
+              "pm.collectionVariables.set(\"token\", json.token);",
+              "console.log(\"Stored token:\", json.token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Change Password",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"oldPassword\": \"JapneetKaur@22BCS10390\",\n  \"newPassword\": \"MyNewPassword1234\"\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/auth/change-password", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "change-password"] }
+      }
+    },
+    {
+      "name": "Create Sweet (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{admintoken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Rasgulla\",\n  \"category\": \"Indian\",\n  \"price\": 45,\n  \"quantity\": 50\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/sweets", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "sweets"] }
+      }
+    },
+    {
+      "name": "List All Sweets",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "http://localhost:3000/api/sweets", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "sweets"] }
+      }
+    },
+    {
+      "name": "Get Sweet By ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": { "raw": "http://localhost:3000/api/sweets/7", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "sweets", "7"] }
+      }
+    },
+    {
+      "name": "Search Sweets",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/sweets/search?name=Ras&minPrice=10&maxPrice=100",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "sweets", "search"],
+          "query": [
+            { "key": "name", "value": "Ras" },
+            { "key": "minPrice", "value": "10" },
+            { "key": "maxPrice", "value": "100" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Sweet",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{admintoken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 60,\n  \"quantity\": 30\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/sweets/7", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "sweets", "7"] }
+      }
+    },
+    {
+      "name": "Purchase Sweet",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"qty\": 2\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/sweets/7/purchase", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "sweets", "7", "purchase"] }
+      }
+    },
+    {
+      "name": "Restock Sweet (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{admintoken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"qty\": 20\n}"
+        },
+        "url": { "raw": "http://localhost:3000/api/sweets/7/restock", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "sweets", "7", "restock"] }
+      }
+    },
+    {
+      "name": "Delete Sweet (Admin)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{admintoken}}" }
+        ],
+        "url": { "raw": "http://localhost:3000/api/sweets/7", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "sweets", "7"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "token", "value": "" },
+    { "key": "admintoken", "value": "" }
+  ]
+}
