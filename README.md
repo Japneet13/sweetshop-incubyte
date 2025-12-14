@@ -116,3 +116,24 @@ AI acted as a development assistant rather than a replacement for problem-solvin
 
 ### Admin Panel
 ![Admin Page](screenshots/adminpanel.png)
+
+
+## 🌐 Frontend Deployment
+
+The frontend is deployed on Vercel and available at:
+https://sweetshop-incubyte-eight.vercel.app/
+
+This deployment demonstrates the UI and client-side functionality. 
+
+Deployment Details: 
+
+Platform: Vercel
+Framework: React (Vite)
+Build Command: npm run build
+Output Directory: dist
+
+The backend is intended to be run locally as described below.
+
+Backend Connectivity
+
+The backend itself is not deployed on Vercel due to its reliance on a persistent server process and a SQLite database, which are better suited for traditional hosting platforms.
